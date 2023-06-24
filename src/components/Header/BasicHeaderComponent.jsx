@@ -1,9 +1,7 @@
+import { logOutUser } from '@/api/firebaseApi';
 import { Box, Button, HStack, Icon, Image, Spacer, Stack, useColorMode } from '@chakra-ui/react'
 import React from 'react'
 import { FiBell, FiHeart, FiLogOut } from 'react-icons/fi'
-// import { Link } from 'react-router-dom'
-import { logOutUser } from '../../Api/firebaseApi'
-// import { GlobalContext } from '../../Hooks/Contexts/GlobalContext'
 
 function BasicHeaderComponent() {
 	// const value = useContext(GlobalContext);
