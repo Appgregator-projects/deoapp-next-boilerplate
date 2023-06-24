@@ -10,36 +10,36 @@ import React, {  useEffect } from 'react'
 export default function Home() {
 	const id = useConfig((state) => state.id)
 	const updateId=useConfig((state)=>state.updateId)
-
-	const host = window.location.host
-	const subdomain = host.split('.')
-	const newDomain = `${subdomain[0]}.${subdomain[1]==='localhost:3000'?'deoapp.site':subdomain[1]}`
+	const  windowConfig={host:''}
 
 	useEffect(() => {	
-		
-	const conditions = [{ field: "domains", operator: "array-contains", value: newDomain } ];
+		windowConfig.host = window.location.host
+		windowConfig.subdomain = windowConfig.host.split('.')
+		windowConfig.newDomain = `${windowConfig.subdomain[0]}.${windowConfig.subdomain[1]==='localhost:3000'?'deoapp.site':windowConfig.subdomain[1]}`
+	const conditions = [{ field: "domains", operator: "array-contains", value: windowConfig.newDomain } ];
 	  getCollectionFirebase('domains',conditions)
 	  .then((x)=>{
 		console.log(x)  
-		updateId(x[0]?.id)})
+		updateId(x[0]?.id)}
+		)
+		.catch((err)=>console.log(err.message))
+	  
 	  return () => {
-		
 	  }
 	}, [])
 	
 
   return (
 	<>
-	{id?
+	{id!=='0'?
 	<HomePage/>
 	:
-
-		  <ScaleFade initialScale={36} in>
-		<Stack alignItems='center' minH='99vh' justifyContent='center' >
-						<LoaderComponent/>
-						<Text>{host} - {subdomain} - {newDomain}</Text>
-						<Text>Build & design by deoapp.com</Text>
-		</Stack>
+		<ScaleFade initialScale={36} in>
+			<Stack alignItems='center' minH='99vh' justifyContent='center' >
+				<LoaderComponent/>
+				<Text>{windowConfig.host} - {windowConfig.subdomain} - {windowConfig.newDomain}</Text>
+				<Text>Build & design by deoapp.com</Text>
+			</Stack>
 		</ScaleFade>
 }
   </>
