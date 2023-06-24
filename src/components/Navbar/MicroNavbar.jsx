@@ -1,4 +1,5 @@
-import { Badge, Box, Center, Container, Flex, Icon, SimpleGrid } from '@chakra-ui/react'
+import { Badge, Box, Center, Container, Flex, Icon, SimpleGrid, Text } from '@chakra-ui/react'
+import Link from 'next/link'
 import React, { useContext } from 'react'
 import { FiBookOpen, FiHome, FiMenu, FiSettings, FiShoppingCart } from 'react-icons/fi'
 // import { Link } from 'react-router-dom'
@@ -11,7 +12,7 @@ function MicroNavbar(props) {
 
 	const menu = [
 		{ title: 'Home', icon: FiHome, link: '/' },
-		{ title: 'News', icon: FiBookOpen, link: '/news' },
+		{ title: 'News', icon: FiBookOpen, link: '/blog' },
 		{ title: 'Menu', icon: FiMenu, link: '/' },
 		{ title: 'Cart', icon: FiShoppingCart, link: '/cart' },
 		{ title: 'Setting', icon: FiSettings, link: '/setting' },
@@ -45,10 +46,12 @@ function MicroNavbar(props) {
 					else
 						return (
 							<Box key={i} to={x.link} >
+								<Link href={x.link}>
 								<Center>
 									<Icon as={x.icon} boxSize={6} />
 								</Center>
-								{/* <Text textAlign='center' fontSize='xs' >{x.title}</Text> */}
+								<Text textAlign='center' fontSize='xs' >{x.title}</Text>
+								</Link>
 							</Box>
 						)
 				}
