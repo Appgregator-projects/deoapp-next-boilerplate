@@ -1,4 +1,4 @@
-// import { CarouselComponent } from '@/components/Galleries/Carousel/CarouselComponent'
+import { CarouselComponent } from '@/components/Galleries/Carousel/CarouselComponent'
 import { useConfig } from '@/hooks/zustand/configStore'
 // import HeaderOnlyLayout from '@/layouts/HeaderOnlyLayout'
 import MicroFullLayout from '@/layouts/MicroFullLayout'
@@ -21,9 +21,8 @@ function HomePage() {
 
   return (
 	  <MicroFullLayout>
-	<div>{id}</div>
-	{/* <CarouselComponent/> */}
-
+	<Text>{id}</Text>
+	<CarouselComponent/>
 	<SimpleGrid columns='4' mt='2' >
 		{data.map((x,i)=>
 		<Stack key={i} justifyContent='center' alignItems='center' p='2' m='1' borderRadius='md' shadow='base'>
