@@ -10,7 +10,7 @@ import React, {  useEffect } from 'react'
 export default function Home() {
 	const id = useConfig((state) => state.id)
 	const updateId=useConfig((state)=>state.updateId)
-	
+
 	const host = window.location.host
 	const subdomain = host.split('.')
 	const newDomain = `${subdomain[0]}.${subdomain[1]==='localhost:3000'?'deoapp.site':subdomain[1]}`
@@ -21,7 +21,7 @@ export default function Home() {
 	  getCollectionFirebase('domains',conditions)
 	  .then((x)=>{
 		console.log(x)  
-		updateId(x[0].id)})
+		updateId(x[0]?.id)})
 	  return () => {
 		
 	  }
