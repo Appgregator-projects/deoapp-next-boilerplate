@@ -13,18 +13,20 @@ export default function Home() {
 	const  windowConfig={host:''}
 
 	useEffect(() => {	
-		windowConfig.host = window.location.host
-		windowConfig.subdomain = windowConfig.host.split('.')
-		windowConfig.newDomain = `${windowConfig.subdomain[0]}.${windowConfig.subdomain[1]==='localhost:3000'?'deoapp.site':windowConfig.subdomain[1]}`
-	const conditions = [{ field: "domains", operator: "array-contains", value: windowConfig.newDomain } ];
+		const host = window.location.host
+		const subdomain = host.split('.')
+		const newDomain = `${subdomain[0]}.${subdomain[1]==='localhost:3000'?'deoapp.site':subdomain[1]}`
+	const conditions = [{ field: "domains", operator: "array-contains", value: newDomain } ];
 	  getCollectionFirebase('domains',conditions)
 	  .then((x)=>{
 		console.log(x)  
-		updateId(x[0]?.id)}
-		)
+		updateId(x[0]?.id)
+		return x
+		})
 		.catch((err)=>console.log(err.message))
 	  
 	  return () => {
+		  windowConfig=null
 	  }
 	}, [])
 	
