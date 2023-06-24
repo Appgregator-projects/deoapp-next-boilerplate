@@ -21,12 +21,12 @@ export default function Home() {
 	  .then((x)=>{
 		console.log(x)  
 		updateId(x[0]?.id)
-		return x
+		return 
 		})
 		.catch((err)=>console.log(err.message))
 	  
 	  return () => {
-		  windowConfig=null
+		 
 	  }
 	}, [])
 	
