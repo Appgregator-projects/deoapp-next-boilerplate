@@ -29,11 +29,11 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getFirestore(app)
 const storage = getStorage(app);
 const rtdb = getDatabase(app)
 // const configMessage = getMessaging(app);
 
-export {app,analytics,auth,db, storage,rtdb}
+export {app,auth,db, storage,rtdb}
