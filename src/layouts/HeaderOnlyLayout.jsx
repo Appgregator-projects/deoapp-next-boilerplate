@@ -3,7 +3,7 @@ import React from 'react'
 
 function HeaderOnlyLayout({children}) {
   return (
-	<Container>
+	<Container shadow='base'>
 		<Heading>ini judulnya</Heading>
 		{children}
 	</Container>
