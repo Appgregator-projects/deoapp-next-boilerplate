@@ -1,7 +1,7 @@
+import BasicHeaderComponent from '@/components/Header/BasicHeaderComponent'
 import MicroNavbar from '@/components/Navbar/MicroNavbar'
 import { Box, Container } from '@chakra-ui/react'
 import React from 'react'
-import BasicHeaderComponent from '../Components/Header/BasicHeaderComponent'
 // import MicroNavbar from '../Components/Navbar/MicroNavbar'
 
 function MicroFullLayout({ children }) {
