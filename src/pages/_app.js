@@ -7,6 +7,8 @@ import react,{useEffect} from 'react';
 function MyApp({ Component, pageProps }) {
 	const configData = useStore(useConfig,(state) => state.data)
 	const updateData= useConfig((state)=>state.updateData)
+	const clearData = useConfig((state)=>state.clearData)
+
 
 	useEffect(() => {
 		const host = window.location.host
@@ -33,7 +35,7 @@ function MyApp({ Component, pageProps }) {
 		.catch((err)=>console.log(err.message))
 
 	  return () => { 
-		useConfig((state)=>state.clearData)
+		clearData()
 	  }
 	}, [])
 	
