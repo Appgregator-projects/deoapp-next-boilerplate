@@ -5,16 +5,13 @@ import useStore from '@/hooks/zustand/useStore'
 import { SimpleGrid, Text } from '@chakra-ui/react'
 import BlogLayout from './BlogLayout'
 
-function index() {
+function Blog() {
 	const [config,setConfig]=useState()
 	const dataConfig = useStore(useConfig,(state) => state.data)
-
+	
 	useEffect(() => {
 		setConfig(dataConfig)
-
-	return () => {
-		
-	}
+	return () => {}
 	}, [dataConfig])
 
   return (
@@ -27,4 +24,4 @@ function index() {
   )
 }
 
-export default index
+export default Blog
