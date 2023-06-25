@@ -9,7 +9,6 @@ function MyApp({ Component, pageProps }) {
 	const updateData= useConfig((state)=>state.updateData)
 	const clearData = useConfig((state)=>state.clearData)
 
-
 	useEffect(() => {
 		const host = window.location.host
 		const subdomain = host.split('.')

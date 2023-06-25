@@ -14,10 +14,21 @@ export default function Home() {
 
 	const configData= useStore(useConfig,(state)=>state.data)
 	const [config,setConfig]=useState()
+	const [domain,setDomain]=useState()
 	const  windowConfig={host:''}
 
 	useEffect(() => {	
 		console.log(configData,'ini config data di app page')
+		windowConfig.host = window.location.host
+		windowConfig.subdomain = windowConfig.host.split('.')
+		windowConfig.newDomain = `${
+			windowConfig.subdomain[0]}.${windowConfig.subdomain[1]==='localhost:3000'?
+			'deoapp'
+			:
+			windowConfig.subdomain[1]}`
+			setDomain(windowConfig.newDomain)
+		
+		console.log(windowConfig)
 		setConfig(configData)
 	  return () => {
 	  }
@@ -30,11 +41,12 @@ export default function Home() {
 		<ScaleFade initialScale={36} in>
 			<Stack alignItems='center' minH='99vh' justifyContent='center' >
 				<LoaderComponent/>
-				<Text>{windowConfig.host} - {windowConfig.subdomain} - {windowConfig.newDomain}</Text>
+				<Text>{domain}</Text>
 				<Text>Build & design by deoapp.com</Text>
 			</Stack>
 		</ScaleFade>
 		:
+		// <Text>{domain}</Text>	
 		push('/home')
 		// <>
 		// <Text>{config?.pages?.brand[0]}</Text>
