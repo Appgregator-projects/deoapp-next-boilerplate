@@ -1,41 +1,32 @@
 'use client'
-import { getCollectionFirebase } from '@/api/firebaseApi'
+import { getCollectionFirebase, getSingleDocumentFirebase } from '@/api/firebaseApi'
 import LoaderComponent from '@/components/Spinners/LoaderComponent'
 import { useConfig } from '@/hooks/zustand/configStore'
+import useStore from '@/hooks/zustand/useStore'
 import HomePage from '@/pages/home'
-import { Link } from '@chakra-ui/next-js'
+
 import { Button, ScaleFade, Stack, Text } from '@chakra-ui/react'
-import React, {  useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import React, {  useEffect,useState } from 'react'
 
 export default function Home() {
-	const id = useConfig((state) => state.id)
-	const updateId=useConfig((state)=>state.updateId)
+	const { push } = useRouter();
+
+	const configData= useStore(useConfig,(state)=>state.data)
+	const [config,setConfig]=useState()
 	const  windowConfig={host:''}
 
 	useEffect(() => {	
-		const host = window.location.host
-		const subdomain = host.split('.')
-		const newDomain = `${subdomain[0]}.${subdomain[1]==='localhost:3000'?'deoapp.site':subdomain[1]}`
-	const conditions = [{ field: "domains", operator: "array-contains", value: newDomain } ];
-	  getCollectionFirebase('domains',conditions)
-	  .then((x)=>{
-		console.log(x)  
-		updateId(x[0]?.id)
-		return 
-		})
-		.catch((err)=>console.log(err.message))
-	  
+		console.log(configData,'ini config data di app page')
+		setConfig(configData)
 	  return () => {
-		updateId()
 	  }
-	}, [])
+	}, [configData])
 	
 
   return (
 	<>
-	{id!=='0'?
-	<HomePage/>
-	:
+	{!config?.pages?.brand[0]?
 		<ScaleFade initialScale={36} in>
 			<Stack alignItems='center' minH='99vh' justifyContent='center' >
 				<LoaderComponent/>
@@ -43,7 +34,15 @@ export default function Home() {
 				<Text>Build & design by deoapp.com</Text>
 			</Stack>
 		</ScaleFade>
-}
+		:
+		push('/home')
+		// <>
+		// <Text>{config?.pages?.brand[0]}</Text>
+		// <Text>kodok</Text>
+		// 		<HomePage/>
+
+		// </>
+	}
   </>
   )
 }

@@ -1,17 +1,31 @@
 import { logOutUser } from '@/api/firebaseApi';
+import { useConfig } from '@/hooks/zustand/configStore';
+import useStore from '@/hooks/zustand/useStore';
 import { Box, Button, HStack, Icon, Image, Spacer, Stack, useColorMode } from '@chakra-ui/react'
 import React from 'react'
 import { FiBell, FiHeart, FiLogOut } from 'react-icons/fi'
-
+import react,{useEffect,useState} from 'react';
 function BasicHeaderComponent() {
 	// const value = useContext(GlobalContext);
+	const configData = useStore(useConfig,(state) => state.data)
+	const [config,setConfig]=useState()
+	
 	const value=null
 	const { colorMode } = useColorMode();
 	const defaultLogo = 'https://deoapp-web.web.app/static/media/deoapp%20colors%20(4).20631dfbbabe92c4cafe.png';
 
+	useEffect(() => {
+		setConfig(configData)
+	
+	  return () => {
+		
+	  }
+	}, [configData])
+	
 	return (
 		<Box position='sticky' p={3} top={0} zIndex={100} width='full' shadow='md' bgColor={colorMode === 'light' ? 'white' : 'black'}>
 			<HStack >
+				<Button onClick={()=>console.log(config)}>Check state</Button>
 				{/* <Link to='/'> */}
 					<Image
 						src={value?.webConfig?.logoLight ? value.webConfig.logoLight : defaultLogo}
@@ -38,10 +52,10 @@ function BasicHeaderComponent() {
 					:
 					<>
 						{/* <Link to='/authentication/signup'> */}
-							<Button size='xs' colorScheme={value?.webConfig?.colorScheme} variant='outline'>Signup</Button>
+							<Button size='xs' colorScheme={configData?.pages?.colorScheme} variant='outline'>Signup</Button>
 						{/* </Link> */}
 						{/* <Link to='/authentication/login'> */}
-							<Button size='xs' colorScheme={value?.webConfig?.colorScheme}>Login</Button>
+							<Button size='xs' colorScheme={configData?.pages?.colorScheme}>Login</Button>
 						{/* </Link> */}
 					</>
 				}

@@ -3,11 +3,12 @@ import { useConfig } from '@/hooks/zustand/configStore'
 // import HeaderOnlyLayout from '@/layouts/HeaderOnlyLayout'
 import MicroFullLayout from '@/layouts/MicroFullLayout'
 import { Box, Container, Flex, Heading, Icon, SimpleGrid, Stack, Text,Image, HStack, Spacer, Button } from '@chakra-ui/react'
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import { FcElectronics } from "react-icons/fc";
 
 function HomePage() {
-	const id = useConfig((state) => state.id)
+	const configData = useConfig((state) => state.data)
+	const [config,setConfig] =useState()
 	const data =[
 		{title:'event'},
 		{title:'cart'},
@@ -19,9 +20,18 @@ function HomePage() {
 		{title:'123123'},
 	]
 
+	useEffect(() => {
+		setConfig(configData)
+	
+	  return () => {
+		
+	  }
+	}, [configData])
+	
+
   return (
 	  <MicroFullLayout>
-	<Text>{id}</Text>
+	<Text>{config?.id}</Text>
 	<CarouselComponent/>
 	<SimpleGrid columns='4' mt='2' >
 		{data.map((x,i)=>

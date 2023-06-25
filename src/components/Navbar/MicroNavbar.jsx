@@ -1,17 +1,19 @@
+import { useConfig } from '@/hooks/zustand/configStore'
 import { Badge, Box, Center, Container, Flex, Icon, SimpleGrid, Text } from '@chakra-ui/react'
 import Link from 'next/link'
 import React, { useContext } from 'react'
 import { FiBookOpen, FiHome, FiMenu, FiSettings, FiShoppingCart } from 'react-icons/fi'
+import { useStore } from 'zustand'
 // import { Link } from 'react-router-dom'
 // import { GlobalContext } from '../../Hooks/Contexts/GlobalContext'
 import { CircularMenuComponent } from '../Buttons/CircularMenu/CircularMenuComponent'
 
 function MicroNavbar(props) {
-	// const value = useContext(GlobalContext)
+	const configData = useStore(useConfig,(state) => state.data)
 	const value=null
 
 	const menu = [
-		{ title: 'Home', icon: FiHome, link: '/' },
+		{ title: 'Home', icon: FiHome, link: '/home' },
 		{ title: 'News', icon: FiBookOpen, link: '/blog' },
 		{ title: 'Menu', icon: FiMenu, link: '/' },
 		{ title: 'Cart', icon: FiShoppingCart, link: '/cart' },
@@ -19,20 +21,20 @@ function MicroNavbar(props) {
 	]
 
 	return (
-		<Box {...props}>
+		<Box {...props} >
 			<SimpleGrid columns={5} alignContent='center'>
 				{/* <Flex> */}
 				{menu.map((x, i) => {
-					if (i === 2)
+					if (i===2)
 						return (
 							<Container key={i}  >
-								<CircularMenuComponent data={value?.webConfig?.features} />
+								<CircularMenuComponent data={configData?.projects?.modules} />
 							</Container>
 						)
 					else if (i === 3)
 						return (
 							<Box key={i} to={x.link}>
-								<Center >
+								<Center>
 									<Flex>
 										<Icon as={x.icon} boxSize={6} />
 										<Box>
@@ -40,7 +42,8 @@ function MicroNavbar(props) {
 										</Box>
 									</Flex>
 								</Center>
-								{/* <Text textAlign='center' fontSize='xs' >{x.title}</Text> */}
+								<Text textAlign='center' fontSize='xs' >{x.title}</Text>
+
 							</Box>
 						)
 					else
