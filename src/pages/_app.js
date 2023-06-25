@@ -12,10 +12,10 @@ function MyApp({ Component, pageProps }) {
 	useEffect(() => {
 		const host = window.location.host
 		const subdomain = host.split('.')
-		const newDomain = `${subdomain[0]}.${subdomain[1]==='localhost:3000'?'deoapp.site':subdomain[1]}`
-		console.log(newDomain)
+		const newDomain = `${subdomain[0]}.${subdomain[1]==='localhost:3000'?'deoapp':subdomain[1]}`
 		const conditions = [{ field: "domain", operator: "==", value: newDomain } ];
-	  
+		console.log(subdomain,newDomain)
+
 	getCollectionFirebase('domains',conditions)
 	  .then((x)=>{
 		console.log(x,'di _app')  
@@ -27,9 +27,7 @@ function MyApp({ Component, pageProps }) {
 					pages:z
 				})
 			})
-			// .then(()=>setConfig(x[0].id))
 			.catch((err)=>console.log(err.message))
-			return 
 		})
 		.catch((err)=>console.log(err.message))
 

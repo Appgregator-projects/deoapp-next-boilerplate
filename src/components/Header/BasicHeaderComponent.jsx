@@ -5,6 +5,7 @@ import { Box, Button, HStack, Icon, Image, Spacer, Stack, useColorMode } from '@
 import React from 'react'
 import { FiBell, FiHeart, FiLogOut } from 'react-icons/fi'
 import react,{useEffect,useState} from 'react';
+import Link from 'next/link';
 function BasicHeaderComponent() {
 	// const value = useContext(GlobalContext);
 	const configData = useStore(useConfig,(state) => state.data)
@@ -25,14 +26,16 @@ function BasicHeaderComponent() {
 	return (
 		<Box position='sticky' p={3} top={0} zIndex={100} width='full' shadow='md' bgColor={colorMode === 'light' ? 'white' : 'black'}>
 			<HStack >
-				<Button onClick={()=>console.log(config)}>Check state</Button>
-				{/* <Link to='/'> */}
+				<Link href='/home'>
 					<Image
 						src={value?.webConfig?.logoLight ? value.webConfig.logoLight : defaultLogo}
 						h='30px'
 						alt='logo'
 					/>
-				{/* </Link> */}
+
+				</Link>
+				<Button onClick={()=>console.log(config)}>Check state</Button>
+
 				<Spacer />
 				{/* <Stack bgColor='brand.1' w='6' h='6' borderRadius='full' alignItems='center' justifyContent='center' >
 					<Icon as={colorMode === 'light' ? FiMoon : FiSun} w='4' h='4' onClick={toggleColorMode} />

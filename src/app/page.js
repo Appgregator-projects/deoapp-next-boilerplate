@@ -11,13 +11,13 @@ import React, {  useEffect,useState } from 'react'
 
 export default function Home() {
 	const { push } = useRouter();
-
 	const configData= useStore(useConfig,(state)=>state.data)
 	const [config,setConfig]=useState()
 	const [domain,setDomain]=useState()
 	const  windowConfig={host:''}
 
 	useEffect(() => {	
+		if(configData){
 		console.log(configData,'ini config data di app page')
 		windowConfig.host = window.location.host
 		windowConfig.subdomain = windowConfig.host.split('.')
@@ -30,14 +30,17 @@ export default function Home() {
 		
 		console.log(windowConfig)
 		setConfig(configData)
+	}
 	  return () => {
+		setDomain()
+		setConfig()
 	  }
 	}, [configData])
 	
 
   return (
 	<>
-	{!config?.pages?.brand[0]?
+	{!config?
 		<ScaleFade initialScale={36} in>
 			<Stack alignItems='center' minH='99vh' justifyContent='center' >
 				<LoaderComponent/>
